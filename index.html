@@ -266,40 +266,111 @@
       <h2>Was ist los in der Harmonie?</h2>
       <div class="divider"></div>
     </div>
-    <div class="news-grid">
-      <div class="news-card reveal">
-        <div class="news-card-body">
-          <span class="news-tag">Vereinsnews</span>
-          <h3>Jahreshauptversammlung 2026</h3>
-          <p>Am <strong>25. April 2026</strong> fand unsere diesjährige Jahreshauptversammlung statt. Alle Mitglieder wurden über aktuelle Vereinsangelegenheiten informiert. Weitere Informationen und Beschlüsse werden in Kürze hier veröffentlicht.</p>
-          <div class="news-date">📅 25. April 2026</div>
-        </div>
-      </div>
-      <div class="event-list">
-        <div class="event-item reveal">
-          <div class="event-date-box">
-            <div class="day">30</div>
-            <div class="month">Apr.</div>
-          </div>
-          <div class="event-info">
-            <h4>🔥 Hexenfeuer</h4>
-            <p>Traditionelles Hexenfeuer zum Walpurgisabend – alle sind herzlich eingeladen!</p>
-          </div>
-        </div>
-        <div class="event-item reveal" style="opacity:0.55;">
-          <div class="event-date-box" style="background:var(--green-sage);">
-            <div class="day">–</div>
-            <div class="month">2026</div>
-          </div>
-          <div class="event-info">
-            <h4>Weitere Termine folgen</h4>
-            <p>Schau regelmäßig hier vorbei für neue Veranstaltungen &amp; Arbeitseinsätze.</p>
-          </div>
-        </div>
-      </div>
+    <div id="news-container">
+      <p style="color:var(--text-muted); text-align:center; padding: 2rem 0;">Nachrichten werden geladen …</p>
     </div>
   </div>
 </section>
+
+<script>
+(function() {
+  const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSuxLH7jbqfmx6fOCAeHOYK3ZiwvNdf9Wa2YkAL9L7Ogos9n_EfStoux3laqVI3ZbSOozez26Aac-ms/pub?output=csv';
+
+  function parseCSV(text) {
+    const lines = text.trim().split('\n');
+    const headers = lines[0].split(',').map(h => h.replace(/"/g, '').trim());
+    return lines.slice(1).map(line => {
+      // Handle commas inside quotes
+      const cols = [];
+      let current = '';
+      let inQuotes = false;
+      for (let i = 0; i < line.length; i++) {
+        if (line[i] === '"') { inQuotes = !inQuotes; }
+        else if (line[i] === ',' && !inQuotes) { cols.push(current.trim()); current = ''; }
+        else { current += line[i]; }
+      }
+      cols.push(current.trim());
+      const obj = {};
+      headers.forEach((h, i) => obj[h] = (cols[i] || '').replace(/"/g, ''));
+      return obj;
+    }).filter(row => row.Titel && row.Titel.length > 0);
+  }
+
+  function renderNews(items) {
+    const container = document.getElementById('news-container');
+    if (!items.length) {
+      container.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:2rem 0;">Aktuell keine Meldungen vorhanden.</p>';
+      return;
+    }
+
+    // Neueste zuerst
+    items.reverse();
+
+    let html = '<div class="news-grid">';
+
+    // Erstes Item groß
+    const first = items[0];
+    html += `
+      <div class="news-card reveal">
+        <div class="news-card-body">
+          <span class="news-tag">${first.Kategorie || 'Vereinsnews'}</span>
+          <h3>${first.Titel}</h3>
+          <p>${first.Inhalt}</p>
+          <div class="news-date">📅 ${first.Datum}</div>
+        </div>
+      </div>`;
+
+    // Rest als Event-Liste
+    html += '<div class="event-list">';
+    const rest = items.slice(1, 4); // max 3 weitere
+    rest.forEach(item => {
+      const parts = item.Datum ? item.Datum.split('.') : [];
+      const day = parts[0] || '–';
+      const month = parts[1] ? new Date(0, parseInt(parts[1])-1).toLocaleString('de', {month:'short'}) : '';
+      html += `
+        <div class="event-item reveal">
+          <div class="event-date-box">
+            <div class="day">${day}</div>
+            <div class="month">${month}</div>
+          </div>
+          <div class="event-info">
+            <h4>${item.Titel}</h4>
+            <p>${item.Inhalt}</p>
+          </div>
+        </div>`;
+    });
+
+    if (items.length === 1) {
+      html += `
+        <div class="event-item reveal" style="opacity:0.55;">
+          <div class="event-date-box" style="background:var(--green-sage);">
+            <div class="day">–</div><div class="month">2026</div>
+          </div>
+          <div class="event-info">
+            <h4>Weitere Termine folgen</h4>
+            <p>Schau regelmäßig hier vorbei für neue Veranstaltungen.</p>
+          </div>
+        </div>`;
+    }
+
+    html += '</div></div>';
+    container.innerHTML = html;
+
+    // Scroll-Animationen neu triggern
+    document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+      observer.observe(el);
+    });
+  }
+
+  fetch(CSV_URL)
+    .then(r => r.text())
+    .then(text => renderNews(parseCSV(text)))
+    .catch(() => {
+      document.getElementById('news-container').innerHTML =
+        '<p style="color:var(--text-muted);text-align:center;padding:2rem 0;">Nachrichten konnten nicht geladen werden.</p>';
+    });
+})();
+</script>
 
 <!-- ═══ ÜBER UNS ═══ -->
 <section class="about" id="ueber-uns">
