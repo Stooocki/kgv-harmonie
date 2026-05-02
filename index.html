@@ -160,6 +160,27 @@
     .form-note { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.75rem; text-align: center; }
     .map-wrap { margin-top: 3rem; }
 
+    /* GALERIE TEASER */
+    .gallery-teaser { padding: 6rem 0; background: var(--green-deep); }
+    .gallery-teaser-header { text-align: center; margin-bottom: 3rem; }
+    .gallery-teaser-header h2 { color: white; font-size: clamp(1.8rem, 3.5vw, 2.6rem); }
+    .gallery-teaser-header .section-label { color: var(--amber-light); }
+    .gallery-teaser-header .divider { margin: 1rem auto 1.5rem; background: var(--amber); }
+    .gallery-teaser-header p { color: var(--green-light); max-width: 500px; margin: 0 auto; }
+    .gallery-teaser-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 0.75rem; margin-bottom: 2.5rem; }
+    .teaser-main { position: relative; overflow: hidden; border-radius: 4px; display: block; aspect-ratio: 16/9; }
+    .teaser-main img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .teaser-main:hover img { transform: scale(1.04); }
+    .teaser-overlay { position: absolute; inset: 0; background: rgba(42,74,46,0.35); display: flex; align-items: center; justify-content: center; transition: background 0.3s; }
+    .teaser-main:hover .teaser-overlay { background: rgba(42,74,46,0.55); }
+    .teaser-overlay span { color: white; font-family: 'Playfair Display', serif; font-size: 1.5rem; font-style: italic; text-shadow: 0 2px 12px rgba(0,0,0,0.5); }
+    .teaser-side { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .teaser-small { display: block; overflow: hidden; border-radius: 4px; aspect-ratio: 1; }
+    .teaser-small img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .teaser-small:hover img { transform: scale(1.08); }
+    .gallery-teaser-cta { text-align: center; }
+    @media (max-width: 640px) { .gallery-teaser-grid { grid-template-columns: 1fr; } }
+
     /* IMPRESSUM & DATENSCHUTZ */
     .legal-section { padding: 5rem 0; background: var(--cream); border-top: 1px solid var(--border); }
     .legal-section + .legal-section { border-top: 2px dashed var(--border); }
@@ -329,19 +350,29 @@
   </div>
 </section>
 
-<!-- ═══ VORSTAND ═══ -->
-<section class="team" id="vorstand">
+<!-- ═══ GALERIE TEASER ═══ -->
+<section class="gallery-teaser">
   <div class="container">
-    <div class="team-header reveal">
-      <span class="section-label">Ansprechpartner</span>
-      <h2>Unser Vorstand</h2>
-      <p>Bei Fragen stehen wir gern persönlich zur Verfügung.</p>
+    <div class="gallery-teaser-header reveal">
+      <span class="section-label">Eindrücke</span>
+      <h2>Unsere Anlage in Bildern</h2>
+      <div class="divider"></div>
+      <p>Drohnenaufnahmen, Wege und Gärten – schau dir unsere Anlage in der Bildergalerie an.</p>
     </div>
-    <div class="team-grid">
-      <div class="team-card reveal"><div class="team-avatar">MR</div><h3>Mario Ränsch</h3><div class="team-role">1. Vorsitzender</div></div>
-      <div class="team-card reveal"><div class="team-avatar">RH</div><h3>Robby Haffki</h3><div class="team-role">2. Vorsitzender</div></div>
-      <div class="team-card reveal"><div class="team-avatar">PS</div><h3>Philipp Stockmann</h3><div class="team-role">Kassierer</div></div>
-      <div class="team-card reveal"><div class="team-avatar">MW</div><h3>Mandy Wenzel</h3><div class="team-role">Schriftführerin</div></div>
+    <div class="gallery-teaser-grid reveal">
+      <a href="galerie.html" class="teaser-main">
+        <img src="foto01.jpg" alt="Drohnenaufnahme Anlage" />
+        <div class="teaser-overlay"><span>📷 Alle Fotos ansehen</span></div>
+      </a>
+      <div class="teaser-side">
+        <a href="galerie.html" class="teaser-small"><img src="foto09.jpg" alt="Gartenimpression" /></a>
+        <a href="galerie.html" class="teaser-small"><img src="foto11.jpg" alt="Weg durch die Anlage" /></a>
+        <a href="galerie.html" class="teaser-small"><img src="foto07.jpg" alt="Blick über die Anlage" /></a>
+        <a href="galerie.html" class="teaser-small"><img src="foto12.jpg" alt="Vereinshaus" /></a>
+      </div>
+    </div>
+    <div class="gallery-teaser-cta reveal">
+      <a href="galerie.html" class="btn btn-primary">Zur Galerie</a>
     </div>
   </div>
 </section>
@@ -405,6 +436,23 @@
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade">
       </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ VORSTAND ═══ -->
+<section class="team" id="vorstand">
+  <div class="container">
+    <div class="team-header reveal">
+      <span class="section-label">Ansprechpartner</span>
+      <h2>Unser Vorstand</h2>
+      <p>Bei Fragen stehen wir gern persönlich zur Verfügung.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal"><div class="team-avatar">MR</div><h3>Mario Ränsch</h3><div class="team-role">1. Vorsitzender</div></div>
+      <div class="team-card reveal"><div class="team-avatar">RH</div><h3>Robby Haffki</h3><div class="team-role">2. Vorsitzender</div></div>
+      <div class="team-card reveal"><div class="team-avatar">PS</div><h3>Philipp Stockmann</h3><div class="team-role">Kassierer</div></div>
+      <div class="team-card reveal"><div class="team-avatar">MW</div><h3>Mandy Wenzel</h3><div class="team-role">Schriftführerin</div></div>
     </div>
   </div>
 </section>
