@@ -132,8 +132,8 @@
     .faq-link-box span:not(.faq-link-icon):not(.faq-link-arrow) { font-size: 0.85rem; color: rgba(255,255,255,0.88); }
     .faq-link-arrow { font-size: 1.5rem; color: white; flex-shrink: 0; margin-left: auto; }
     /* NEWS AUSKLAPPEN */
-    .news-text-collapsed { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-    .news-text-expanded { display: block; }
+    .news-text-collapsed { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; max-height: 4.8em; line-height: 1.6; }
+    .news-text-expanded { display: block; max-height: none; overflow: visible; }
     .news-toggle { display: inline-block; margin-top: 0.6rem; font-size: 0.8rem; font-weight: 700; color: var(--green-mid); cursor: pointer; background: none; border: none; padding: 0; letter-spacing: 0.04em; }
     .news-toggle:hover { color: var(--amber); }
 
@@ -441,6 +441,16 @@
 
     html += '</div></div>';
     container.innerHTML = html;
+
+    // Sicherstellen dass collapsed-Klasse greift
+    const newsP = document.getElementById('news-main');
+    if (newsP && newsP.classList.contains('news-text-collapsed')) {
+      newsP.style.display = '-webkit-box';
+      newsP.style.webkitLineClamp = '3';
+      newsP.style.webkitBoxOrient = 'vertical';
+      newsP.style.overflow = 'hidden';
+      newsP.style.maxHeight = '4.8em';
+    }
 
     // Scroll-Animationen neu triggern
     document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
