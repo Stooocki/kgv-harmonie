@@ -124,12 +124,19 @@
     .plots-cta { text-align: center; }
     .price-note { display: inline-block; background: var(--green-light); color: var(--green-deep); padding: 1.2rem 2.5rem; border-radius: 4px; margin-bottom: 2rem; font-size: 0.95rem; }
     .price-note strong { font-family: 'Playfair Display', serif; font-size: 1.5rem; display: block; }
-    .faq-link-box { display: flex; align-items: center; gap: 1.2rem; background: white; border: 1.5px solid var(--border); border-radius: 4px; padding: 1.2rem 1.5rem; margin-bottom: 2rem; text-decoration: none; color: var(--text-body); transition: all 0.2s; text-align: left; }
-    .faq-link-box:hover { border-color: var(--green-mid); box-shadow: 0 4px 16px rgba(42,74,46,0.1); transform: translateY(-2px); color: var(--text-body); }
+    .faq-link-box { display: flex; align-items: center; gap: 1.2rem; background: var(--amber); border: none; border-radius: 4px; padding: 1.2rem 1.5rem; margin-bottom: 2rem; text-decoration: none; color: white; transition: all 0.2s; text-align: left; }
+    .faq-link-box:hover { background: var(--amber-light); box-shadow: 0 4px 16px rgba(184,146,74,0.35); transform: translateY(-2px); color: var(--charcoal); }
     .faq-link-icon { font-size: 2rem; flex-shrink: 0; }
-    .faq-link-box strong { display: block; font-size: 1rem; color: var(--green-deep); margin-bottom: 0.2rem; }
-    .faq-link-box span:not(.faq-link-icon):not(.faq-link-arrow) { font-size: 0.85rem; color: var(--text-muted); }
-    .faq-link-arrow { font-size: 1.5rem; color: var(--green-mid); flex-shrink: 0; margin-left: auto; }
+    .faq-link-box strong { display: block; font-size: 1rem; color: white; margin-bottom: 0.2rem; }
+    .faq-link-box:hover strong { color: var(--charcoal); }
+    .faq-link-box span:not(.faq-link-icon):not(.faq-link-arrow) { font-size: 0.85rem; color: rgba(255,255,255,0.88); }
+    .faq-link-arrow { font-size: 1.5rem; color: white; flex-shrink: 0; margin-left: auto; }
+    /* NEWS AUSKLAPPEN */
+    .news-text-collapsed { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .news-text-expanded { display: block; }
+    .news-toggle { display: inline-block; margin-top: 0.6rem; font-size: 0.8rem; font-weight: 700; color: var(--green-mid); cursor: pointer; background: none; border: none; padding: 0; letter-spacing: 0.04em; }
+    .news-toggle:hover { color: var(--amber); }
+
     /* TERMINE TABS */
     .news-tabs { display: flex; gap: 0; margin-bottom: 2rem; border-bottom: 2px solid var(--border); }
     .news-tab { padding: 0.7rem 1.5rem; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; background: none; border: none; color: var(--text-muted); border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
@@ -384,14 +391,17 @@
 
     let html = '<div class="news-grid">';
 
-    // Erstes Item groß
+    // Erstes Item groß – mit Ausklappen wenn Text lang
     const first = items[0];
+    const firstLong = first.Inhalt && first.Inhalt.length > 180;
+    const firstId = 'news-main';
     html += `
       <div class="news-card reveal">
         <div class="news-card-body">
           <span class="news-tag">${first.Kategorie || 'Vereinsnews'}</span>
           <h3>${first.Titel}</h3>
-          <p>${first.Inhalt}</p>
+          <p id="${firstId}" class="${firstLong ? 'news-text-collapsed' : ''}">${first.Inhalt}</p>
+          ${firstLong ? `<button class="news-toggle" onclick="toggleNews('${firstId}', this)">▼ Mehr lesen</button>` : ''}
           <div class="news-date">📅 ${first.Datum}</div>
         </div>
       </div>`;
@@ -632,6 +642,20 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // News ausklappen
+  function toggleNews(id, btn) {
+    const p = document.getElementById(id);
+    if (p.classList.contains('news-text-collapsed')) {
+      p.classList.remove('news-text-collapsed');
+      p.classList.add('news-text-expanded');
+      btn.textContent = '▲ Weniger anzeigen';
+    } else {
+      p.classList.remove('news-text-expanded');
+      p.classList.add('news-text-collapsed');
+      btn.textContent = '▼ Mehr lesen';
+    }
+  }
 
   // Hamburger Menü
   const hamburger = document.getElementById('hamburger');
