@@ -662,10 +662,20 @@
     if (p.classList.contains('news-text-collapsed')) {
       p.classList.remove('news-text-collapsed');
       p.classList.add('news-text-expanded');
+      p.style.display = 'block';
+      p.style.webkitLineClamp = 'unset';
+      p.style.webkitBoxOrient = 'unset';
+      p.style.overflow = 'visible';
+      p.style.maxHeight = 'none';
       btn.textContent = '▲ Weniger anzeigen';
     } else {
       p.classList.remove('news-text-expanded');
       p.classList.add('news-text-collapsed');
+      p.style.display = '-webkit-box';
+      p.style.webkitLineClamp = '3';
+      p.style.webkitBoxOrient = 'vertical';
+      p.style.overflow = 'hidden';
+      p.style.maxHeight = '4.8em';
       btn.textContent = '▼ Mehr lesen';
     }
   }
