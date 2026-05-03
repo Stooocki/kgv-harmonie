@@ -124,6 +124,19 @@
     .plots-cta { text-align: center; }
     .price-note { display: inline-block; background: var(--green-light); color: var(--green-deep); padding: 1.2rem 2.5rem; border-radius: 4px; margin-bottom: 2rem; font-size: 0.95rem; }
     .price-note strong { font-family: 'Playfair Display', serif; font-size: 1.5rem; display: block; }
+    .faq-link-box { display: flex; align-items: center; gap: 1.2rem; background: white; border: 1.5px solid var(--border); border-radius: 4px; padding: 1.2rem 1.5rem; margin-bottom: 2rem; text-decoration: none; color: var(--text-body); transition: all 0.2s; text-align: left; }
+    .faq-link-box:hover { border-color: var(--green-mid); box-shadow: 0 4px 16px rgba(42,74,46,0.1); transform: translateY(-2px); color: var(--text-body); }
+    .faq-link-icon { font-size: 2rem; flex-shrink: 0; }
+    .faq-link-box strong { display: block; font-size: 1rem; color: var(--green-deep); margin-bottom: 0.2rem; }
+    .faq-link-box span:not(.faq-link-icon):not(.faq-link-arrow) { font-size: 0.85rem; color: var(--text-muted); }
+    .faq-link-arrow { font-size: 1.5rem; color: var(--green-mid); flex-shrink: 0; margin-left: auto; }
+    /* TERMINE TABS */
+    .news-tabs { display: flex; gap: 0; margin-bottom: 2rem; border-bottom: 2px solid var(--border); }
+    .news-tab { padding: 0.7rem 1.5rem; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; background: none; border: none; color: var(--text-muted); border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
+    .news-tab.active { color: var(--green-deep); border-bottom-color: var(--amber); }
+    .news-tab:hover { color: var(--green-deep); }
+    .news-panel { display: none; }
+    .news-panel.active { display: block; }
 
     /* VORSTAND */
     .team { padding: 6rem 0; background: var(--green-deep); }
@@ -208,18 +221,41 @@
       .plots-grid { grid-template-columns: 1fr 1fr; }
       .about-image-badge { left: 0; bottom: -1rem; }
     }
+    /* HAMBURGER MENÜ */
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .nav-hamburger span { display: block; width: 24px; height: 2px; background: white; border-radius: 2px; transition: all 0.3s; }
+    nav.scrolled .nav-hamburger span { background: var(--green-deep); }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-mobile-menu { display: none; position: fixed; top: 60px; left: 0; right: 0; background: var(--green-deep); padding: 1.5rem 2rem; z-index: 99; flex-direction: column; gap: 0; box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+    .nav-mobile-menu.open { display: flex; }
+    .nav-mobile-menu a { color: rgba(255,255,255,0.85); font-size: 0.9rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); text-decoration: none; }
+    .nav-mobile-menu a:last-child { border-bottom: none; color: var(--amber-light); }
+    .nav-mobile-menu a:hover { color: white; }
+
     @media (max-width: 640px) {
       .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
       .team-grid { grid-template-columns: 1fr 1fr; }
       .plots-grid { grid-template-columns: 1fr; }
       .form-row { grid-template-columns: 1fr; }
       .hero h1 { font-size: 2rem; }
+      .hero-nav { gap: 0.3rem; }
+      .hero-nav a { font-size: 0.62rem; padding: 0.35rem 0.6rem; }
+      .news-grid { grid-template-columns: 1fr; }
+      .news-tabs { overflow-x: auto; }
+      .news-tab { white-space: nowrap; padding: 0.7rem 1rem; }
+      .event-item { padding: 1rem; }
+      .container { padding: 0 1.2rem; }
+      .news { padding: 4rem 0; }
     }
 
     /* SCROLL ANIMATION */
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
   </style>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="3a08dc0f-db4e-451b-adb2-a01268d400b2"></script>
 </head>
 <body>
 
@@ -238,8 +274,19 @@
       <li><a href="faq.html">FAQ</a></li>
       <li><a href="#kontakt" class="nav-cta">Kontakt</a></li>
     </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menü öffnen">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+<div class="nav-mobile-menu" id="mobile-menu">
+  <a href="#aktuelles" onclick="closeMobileMenu()">Aktuelles</a>
+  <a href="#ueber-uns" onclick="closeMobileMenu()">Über uns</a>
+  <a href="#parzellen" onclick="closeMobileMenu()">Parzellen</a>
+  <a href="galerie.html">Galerie</a>
+  <a href="faq.html">FAQ</a>
+  <a href="#kontakt" onclick="closeMobileMenu()">Kontakt</a>
+</div>
 
 <!-- ═══ HERO ═══ -->
 <section class="hero">
@@ -269,8 +316,34 @@
       <h2>Was ist los in der Harmonie?</h2>
       <div class="divider"></div>
     </div>
-    <div id="news-container">
-      <p style="color:var(--text-muted); text-align:center; padding: 2rem 0;">Nachrichten werden geladen …</p>
+    <div class="news-tabs">
+      <button class="news-tab active" onclick="switchTab('news')">📰 Neuigkeiten</button>
+      <button class="news-tab" onclick="switchTab('termine')">📅 Termine</button>
+    </div>
+    <div class="news-panel active" id="panel-news">
+      <div id="news-container">
+        <p style="color:var(--text-muted); text-align:center; padding: 2rem 0;">Nachrichten werden geladen …</p>
+      </div>
+    </div>
+    <div class="news-panel" id="panel-termine">
+      <div class="event-list">
+        <div class="event-item">
+          <div class="event-date-box"><div class="day">30</div><div class="month">Apr.</div></div>
+          <div class="event-info"><h4>🔥 Hexenfeuer</h4><p>Traditionelles Walpurgisfeuer – alle Mitglieder und Gäste sind herzlich eingeladen!</p></div>
+        </div>
+        <div class="event-item">
+          <div class="event-date-box" style="background:var(--green-mid);"><div class="day">–</div><div class="month">Juni</div></div>
+          <div class="event-info"><h4>☀️ Sommerfest</h4><p>Unser jährliches Sommerfest – Datum wird noch bekanntgegeben.</p></div>
+        </div>
+        <div class="event-item">
+          <div class="event-date-box" style="background:var(--green-mid);"><div class="day">–</div><div class="month">Herbst</div></div>
+          <div class="event-info"><h4>🤝 Helferabend</h4><p>Gemeinsamer Abend für alle fleißigen Helfer der Anlage.</p></div>
+        </div>
+        <div class="event-item">
+          <div class="event-date-box" style="background:var(--green-mid);"><div class="day">–</div><div class="month">2027</div></div>
+          <div class="event-info"><h4>📋 Jahreshauptversammlung 2027</h4><p>Termin wird rechtzeitig bekanntgegeben.</p></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -386,12 +459,6 @@
         <p>Die Kleingartenanlage „Harmonie" e.V. liegt im grünen Herzen von Zwickau-Marienthal, direkt am Weißenborner Wald. Unsere Anlage bietet naturnahe Erholung für Familien, Paare und Einzelpersonen – mit einem starken Gemeinschaftsgefühl und gelebter Nachbarschaft.</p>
         <p>Ob Gemüseanbau, Blumenpracht oder einfach ein ruhiger Ort zum Durchatmen – bei uns findet jeder seinen grünen Platz. Kinder, Hunde und Anfänger sind herzlich willkommen.</p>
         <p>Unser vereinseigener Spielplatz und regelmäßige Gemeinschaftsveranstaltungen wie das traditionelle Hexenfeuer machen die Harmonie zu mehr als nur einer Gartenanlage.</p>
-        <div class="about-facts">
-          <div class="fact-card"><div class="num">✅</div><div class="label">Parzellen verfügbar</div></div>
-          <div class="fact-card"><div class="num" style="font-size:1.1rem;">ca. 150–200 €</div><div class="label">Kosten im Jahr</div></div>
-          <div class="fact-card"><div class="num">🐕</div><div class="label">Haustiere willkommen</div></div>
-          <div class="fact-card"><div class="num">🛝</div><div class="label">Spielplatz vorhanden</div></div>
-        </div>
       </div>
       <div class="about-image reveal">
         <img src="foto07.jpg" alt="Kleingartenanlage Harmonie – Blick über die Anlage" class="about-image-main" />
@@ -418,7 +485,14 @@
       <div class="plot-card reveal"><div class="plot-icon">🐾</div><h3>Haustiere erlaubt</h3><p>Hunde und andere Haustiere sind bei uns herzlich willkommen – genug Platz zum Toben.</p></div>
     </div>
     <div class="plots-cta reveal">
-      <div class="price-note">Jahreskosten ca. <strong>150 – 200 €</strong> inkl. Mitgliedsbeitrag, Pacht &amp; Betriebskosten</div>
+      <a href="faq.html" class="faq-link-box">
+        <span class="faq-link-icon">❓</span>
+        <div>
+          <strong>Häufige Fragen zu Kosten &amp; Konditionen</strong>
+          <span>Jahreskosten, Arbeitsstunden, Übernahme &amp; mehr – alle Antworten in unserem FAQ</span>
+        </div>
+        <span class="faq-link-arrow">→</span>
+      </a>
       <br /><a href="https://www.kleinanzeigen.de/s-bestandsliste.html?userId=140429822" target="_blank" rel="noopener" class="btn btn-primary">Jetzt Besichtigung anfragen</a>
     </div>
   </div>
@@ -531,76 +605,6 @@
   </div>
 </section>
 
-<!-- ═══ IMPRESSUM ═══ -->
-<section class="legal-section" id="impressum">
-  <div class="container">
-    <div class="legal-content">
-      <span class="section-label">Rechtliches</span>
-      <h2>Impressum</h2>
-      <div class="divider"></div>
-
-      <h3>Angaben gemäß § 5 TMG</h3>
-      <p>Kleingartenanlage „Harmonie" e.V.<br />Werdauer Str. 136a<br />08060 Zwickau</p>
-
-      <h3>Vertreten durch</h3>
-      <p>Mario Ränsch (1. Vorsitzender)</p>
-
-      <h3>Vereinsregister</h3>
-      <p>Eingetragen im Vereinsregister beim Amtsgericht Chemnitz<br />
-      Registernummer: <span class="legal-placeholder">⚠ Bitte eintragen: VR XXXXX</span></p>
-
-      <h3>Kontakt</h3>
-      <p>E-Mail: <a href="mailto:kgv-harmonie@protonmail.com">kgv-harmonie@protonmail.com</a></p>
-
-      <h3>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h3>
-      <p>Philipp Stockmann<br />Kleingartenanlage „Harmonie" e.V.<br />Werdauer Str. 136a, 08060 Zwickau</p>
-
-      <h3>Haftung für Inhalte</h3>
-      <p>Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.</p>
-
-      <h3>Haftung für Links</h3>
-      <p>Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.</p>
-
-      <h3>Urheberrecht</h3>
-      <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechts bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ DATENSCHUTZ ═══ -->
-<section class="legal-section" id="datenschutz">
-  <div class="container">
-    <div class="legal-content">
-      <span class="section-label">Rechtliches</span>
-      <h2>Datenschutzerklärung</h2>
-      <div class="divider"></div>
-
-      <h3>1. Verantwortlicher</h3>
-      <p>Kleingartenanlage „Harmonie" e.V.<br />Werdauer Str. 136a, 08060 Zwickau<br />E-Mail: <a href="mailto:kgv-harmonie@protonmail.com">kgv-harmonie@protonmail.com</a><br />Vertreten durch: Mario Ränsch (1. Vorsitzender)</p>
-
-      <h3>2. Allgemeines zur Datenverarbeitung</h3>
-      <p>Wir nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Personenbezogene Daten werden auf dieser Website nur im technisch notwendigen Umfang erhoben. Eine Weitergabe Ihrer Daten an Dritte erfolgt ohne Ihre ausdrückliche Einwilligung nicht, sofern dies nicht zur Vertragserfüllung erforderlich ist oder gesetzlich vorgeschrieben wird.</p>
-
-      <h3>3. Kontaktformular</h3>
-      <p>Wenn Sie uns über das Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben (Name, E-Mail-Adresse, Nachricht) zum Zweck der Bearbeitung der Anfrage gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO.</p>
-      <p>Das Kontaktformular wird über den Dienst <strong>Formspree</strong> (Formspree, Inc., USA) verarbeitet. Es gelten die Datenschutzbestimmungen von Formspree: <a href="https://formspree.io/legal/privacy-policy" target="_blank" rel="noopener">formspree.io/legal/privacy-policy</a>.</p>
-
-      <h3>4. Google Fonts</h3>
-      <p>Diese Website nutzt Google Fonts des Anbieters Google LLC, USA. Beim Aufruf einer Seite lädt Ihr Browser die benötigten Schriften direkt von Google-Servern, wobei Ihre IP-Adresse übermittelt wird. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Weitere Informationen: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>.</p>
-
-      <h3>5. Server-Logfiles</h3>
-      <p>Der Hosting-Anbieter erhebt automatisch Informationen in Server-Logfiles (Browsertyp, Betriebssystem, Referrer-URL, IP-Adresse, Uhrzeit). Diese Daten werden nicht mit anderen Datenquellen zusammengeführt.</p>
-
-      <h3>6. Keine Cookies / kein Tracking</h3>
-      <p>Diese Website verwendet keine Cookies und kein Tracking durch Drittanbieter (z. B. Google Analytics). Es findet keine Analyse Ihres Nutzerverhaltens statt.</p>
-
-      <h3>7. Ihre Rechte</h3>
-      <p>Sie haben jederzeit das Recht auf Auskunft, Berichtigung, Sperrung oder Löschung Ihrer gespeicherten personenbezogenen Daten (Art. 15–17 DSGVO). Wenden Sie sich dazu an die im Impressum angegebene Adresse.</p>
-      <p>Zudem steht Ihnen ein Beschwerderecht bei der zuständigen Aufsichtsbehörde zu: Sächsischer Datenschutzbeauftragter, Devrientstraße 5, 01067 Dresden, <a href="https://www.saechsdsb.de" target="_blank" rel="noopener">www.saechsdsb.de</a>.</p>
-    </div>
-  </div>
-</section>
-
 <!-- ═══ FOOTER ═══ -->
 <footer>
   <div class="footer-inner">
@@ -613,8 +617,8 @@
       <a href="galerie.html">Galerie</a>
       <a href="faq.html">FAQ</a>
       <a href="#kontakt">Kontakt</a>
-      <a href="#impressum">Impressum</a>
-      <a href="#datenschutz">Datenschutz</a>
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
     </div>
     <p class="footer-copy">
       © 2026 Kleingartenanlage „Harmonie" e.V. · Alle Rechte vorbehalten<br />
@@ -629,7 +633,25 @@
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  const nav = document.querySelector('nav');
+  // Hamburger Menü
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  function closeMobileMenu() {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  }
+
+  function switchTab(tab) {
+    document.querySelectorAll('.news-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.news-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + tab).classList.add('active');
+    event.target.classList.add('active');
+  }
+
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 80);
   });
