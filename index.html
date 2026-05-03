@@ -408,11 +408,13 @@
 
     // Rest als Event-Liste
     html += '<div class="event-list">';
-    const rest = items.slice(1, 4); // max 3 weitere
-    rest.forEach(item => {
-      const parts = item.Datum ? item.Datum.split('.') : [];
-      const day = parts[0] || '–';
-      const month = parts[1] ? new Date(0, parseInt(parts[1])-1).toLocaleString('de', {month:'short'}) : '';
+    const rest = items.slice(1, 4);
+    rest.forEach((item, idx) => {
+      const parts = item.Datum ? item.Datum.trim().split('.') : [];
+      const day = parts[0] ? parts[0].trim() : '–';
+      const month = parts[1] ? new Date(0, parseInt(parts[1].trim())-1).toLocaleString('de', {month:'short'}) : '';
+      const isLong = item.Inhalt && item.Inhalt.length > 50;
+      const itemId = `news-rest-${idx}`;
       html += `
         <div class="event-item reveal">
           <div class="event-date-box">
@@ -421,7 +423,8 @@
           </div>
           <div class="event-info">
             <h4>${item.Titel}</h4>
-            <p>${item.Inhalt}</p>
+            <p id="${itemId}" class="${isLong ? 'news-text-collapsed' : ''}" style="${isLong ? 'display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;' : ''}">${item.Inhalt}</p>
+            ${isLong ? `<button class="news-toggle" onclick="toggleNews('${itemId}', this)">▼ Mehr lesen</button>` : ''}
           </div>
         </div>`;
     });
