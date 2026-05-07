@@ -59,12 +59,16 @@
     .hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 100px; background: linear-gradient(to top, var(--warm-white), transparent); }
     .hero-content { position: relative; z-index: 1; padding: 4rem 2rem; max-width: 760px; margin: 0 auto; text-align: center; animation: fadeUp 0.9s ease both; }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
-    .hero-nav { display: flex; gap: 0; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; border-top: 1px solid rgba(255,255,255,0.2); border-bottom: 1px solid rgba(255,255,255,0.2); padding: 0.75rem 0; }
-    .hero-nav a { color: rgba(255,255,255,0.75); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.3rem 1.2rem; position: relative; transition: color 0.2s; }
+    .hero-nav { display: flex; gap: 0; justify-content: center; flex-wrap: nowrap; margin-bottom: 2rem; border-top: 1px solid rgba(255,255,255,0.2); border-bottom: 1px solid rgba(255,255,255,0.2); padding: 0.75rem 0; width: 100%; }
+    .hero-nav a { color: rgba(255,255,255,0.75); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.3rem 1.2rem; position: relative; transition: color 0.2s; white-space: nowrap; }
     .hero-nav a::after { content: ''; position: absolute; bottom: -2px; left: 1.2rem; right: 1.2rem; height: 2px; background: var(--amber-light); transform: scaleX(0); transition: transform 0.2s; }
     .hero-nav a:hover { color: white; }
     .hero-nav a:hover::after { transform: scaleX(1); }
     .hero-nav a + a::before { content: '·'; position: absolute; left: 0; color: rgba(255,255,255,0.25); font-size: 0.8rem; }
+    @media (max-width: 480px) {
+      .hero-nav a { font-size: 0.58rem; padding: 0.3rem 0.5rem; letter-spacing: 0.04em; }
+      .hero-nav a + a::before { display: none; }
+    }
     .hero h1 { font-size: clamp(2.4rem, 6vw, 4rem); color: white; margin-bottom: 1.4rem; text-shadow: 0 2px 20px rgba(0,0,0,0.7), 0 4px 40px rgba(0,0,0,0.5); }
     .hero h1 em { font-style: italic; color: var(--amber-light); }
     .hero-sub { font-size: 1.05rem; color: rgba(245,240,232,0.9); max-width: 560px; margin: 0 auto 2.5rem; line-height: 1.8; }
@@ -260,7 +264,6 @@
       .plots-grid { grid-template-columns: 1fr; }
       .form-row { grid-template-columns: 1fr; }
       .hero h1 { font-size: 2rem; }
-      .hero-nav { display: none; }
       .about-image-main { height: 220px; }
       .about-image { margin-bottom: 1.5rem; }
       .news-grid { grid-template-columns: 1fr; }
