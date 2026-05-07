@@ -201,7 +201,12 @@
     .teaser-small img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
     .teaser-small:hover img { transform: scale(1.08); }
     .gallery-teaser-cta { text-align: center; }
-    @media (max-width: 640px) { .gallery-teaser-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 640px) {
+      .gallery-teaser-grid { grid-template-columns: 1fr; }
+      .teaser-side { grid-template-columns: 1fr 1fr; }
+      .teaser-small:nth-child(n+3) { display: none; }
+      .teaser-overlay span { font-size: 1.1rem; }
+    }
 
     /* IMPRESSUM & DATENSCHUTZ */
     .legal-section { padding: 5rem 0; background: var(--cream); border-top: 1px solid var(--border); }
@@ -229,6 +234,7 @@
       .team-grid { grid-template-columns: repeat(2, 1fr); }
       .plots-grid { grid-template-columns: 1fr 1fr; }
       .about-image-badge { left: 0; bottom: -1rem; }
+      .about-image-main { height: 280px; }
     }
     /* HAMBURGER MENÜ */
     .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
@@ -250,8 +256,8 @@
       .plots-grid { grid-template-columns: 1fr; }
       .form-row { grid-template-columns: 1fr; }
       .hero h1 { font-size: 2rem; }
-      .hero-nav { gap: 0.3rem; }
-      .hero-nav a { font-size: 0.62rem; padding: 0.35rem 0.6rem; }
+      .about-image-main { height: 220px; }
+      .about-image { margin-bottom: 1.5rem; }
       .news-grid { grid-template-columns: 1fr; }
       .news-tabs { overflow-x: auto; }
       .news-tab { white-space: nowrap; padding: 0.7rem 1rem; }
@@ -303,7 +309,6 @@
     <nav class="hero-nav">
       <a href="#aktuelles">Aktuelles</a>
       <a href="#ueber-uns">Über uns</a>
-      <a href="#parzellen">Parzellen</a>
       <a href="galerie.html">Galerie</a>
       <a href="faq.html">FAQ</a>
       <a href="#kontakt">Kontakt</a>
