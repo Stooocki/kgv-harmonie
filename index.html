@@ -55,7 +55,7 @@
     nav.scrolled .nav-cta:hover { background: var(--green-mid) !important; }
 
     /* HERO */
-    .hero { min-height: 100vh; background: linear-gradient(160deg, rgba(20,32,22,0.65) 0%, rgba(42,74,46,0.50) 60%, rgba(61,107,66,0.30) 100%), url('hero.jpg') center/cover no-repeat; display: flex; align-items: center; padding-top: 70px; position: relative; overflow: hidden; }
+    .hero { min-height: 70vh; background: linear-gradient(160deg, rgba(20,32,22,0.65) 0%, rgba(42,74,46,0.50) 60%, rgba(61,107,66,0.30) 100%), url('hero.jpg') center/cover no-repeat; display: flex; align-items: center; padding-top: 70px; position: relative; overflow: hidden; }
     .hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 100px; background: linear-gradient(to top, var(--warm-white), transparent); }
     .hero-content { position: relative; z-index: 1; padding: 4rem 2rem; max-width: 760px; margin: 0 auto; text-align: center; animation: fadeUp 0.9s ease both; }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
@@ -154,7 +154,7 @@
     .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
     .team-card { text-align: center; padding: 2rem 1.2rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(200,222,201,0.15); border-radius: 4px; transition: background 0.25s; }
     .team-card:hover { background: rgba(255,255,255,0.1); }
-    .team-avatar { width: 72px; height: 72px; border-radius: 50%; background: var(--green-mid); margin: 0 auto 1.2rem; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.5rem; color: white; border: 2px solid var(--green-sage); }
+    .team-avatar { width: 72px; height: 72px; border-radius: 50%; background: rgba(255,255,255,0.1); margin: 0 auto 1.2rem; display: flex; align-items: center; justify-content: center; font-size: 2rem; border: 2px solid rgba(200,222,201,0.3); }
     .team-card h3 { color: white; font-size: 1rem; margin-bottom: 0.3rem; }
     .team-role { font-size: 0.75rem; color: var(--amber-light); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
 
@@ -298,14 +298,6 @@
 <!-- ═══ HERO ═══ -->
 <section class="hero">
   <div class="hero-content">
-    <nav class="hero-nav">
-      <a href="#aktuelles">Aktuelles</a>
-      <a href="#ueber-uns">Über uns</a>
-      <a href="#parzellen">Parzellen</a>
-      <a href="galerie.html">Galerie</a>
-      <a href="faq.html">FAQ</a>
-      <a href="#kontakt">Kontakt</a>
-    </nav>
     <h1>Willkommen in der <em>Harmonie</em></h1>
     <p class="hero-sub">Inmitten des Zwickauer Stadtteils Marienthal pflegen wir eine lebendige Gemeinschaft von Gartenfreunden – ein grünes Refugium für Familien, Naturliebhaber und alle, die dem Alltag entfliehen möchten.</p>
     <div class="hero-buttons">
@@ -501,33 +493,6 @@
   </div>
 </section>
 
-<!-- ═══ PARZELLEN ═══ -->
-<section class="plots" id="parzellen">
-  <div class="container">
-    <div class="plots-header reveal">
-      <span class="section-label">Dein grüner Platz wartet</span>
-      <h2>Freie Parzellen verfügbar</h2>
-      <p>Wir haben noch freie Parzellen verfügbar. Ruf uns an oder schreib uns, und wir vereinbaren gern einen Besichtigungstermin.</p>
-    </div>
-    <div class="plots-grid">
-      <div class="plot-card reveal"><div class="plot-icon">🌱</div><h3>Einsteiger-freundlich</h3><p>Keine Erfahrung nötig – wir helfen dir beim Start und stehen mit Rat und Tat zur Seite.</p></div>
-      <div class="plot-card reveal"><div class="plot-icon">👨‍👩‍👧</div><h3>Familien &amp; Kinder</h3><p>Unser Spielplatz und die kinderfreundliche Gemeinschaft machen die Anlage zum Familienparadies.</p></div>
-      <div class="plot-card reveal"><div class="plot-icon">🐾</div><h3>Haustiere erlaubt</h3><p>Hunde und andere Haustiere sind bei uns herzlich willkommen – genug Platz zum Toben.</p></div>
-    </div>
-    <div class="plots-cta reveal">
-      <a href="faq.html" class="faq-link-box">
-        <span class="faq-link-icon">❓</span>
-        <div>
-          <strong>Häufige Fragen zu Kosten &amp; Konditionen</strong>
-          <span>Jahreskosten, Arbeitsstunden, Übernahme &amp; mehr – alle Antworten in unserem FAQ</span>
-        </div>
-        <span class="faq-link-arrow">→</span>
-      </a>
-      <br /><a href="https://www.kleinanzeigen.de/s-bestandsliste.html?userId=140429822" target="_blank" rel="noopener" class="btn btn-primary">Jetzt Besichtigung anfragen</a>
-    </div>
-  </div>
-</section>
-
 <!-- ═══ GALERIE TEASER ═══ -->
 <section class="gallery-teaser">
   <div class="container">
@@ -555,6 +520,33 @@
   </div>
 </section>
 
+<!-- ═══ PARZELLEN ═══ -->
+<section class="plots" id="parzellen">
+  <div class="container">
+    <div class="plots-header reveal">
+      <span class="section-label">Dein grüner Platz wartet</span>
+      <h2>Freie Parzellen verfügbar</h2>
+      <p>Wir haben noch freie Parzellen verfügbar. Ruf uns an oder schreib uns, und wir vereinbaren gern einen Besichtigungstermin.</p>
+    </div>
+    <div class="plots-grid">
+      <div class="plot-card reveal"><div class="plot-icon">🌱</div><h3>Einsteiger-freundlich</h3><p>Keine Erfahrung nötig – wir helfen dir beim Start und stehen mit Rat und Tat zur Seite.</p></div>
+      <div class="plot-card reveal"><div class="plot-icon">👨‍👩‍👧</div><h3>Familien &amp; Kinder</h3><p>Unser Spielplatz und die kinderfreundliche Gemeinschaft machen die Anlage zum Familienparadies.</p></div>
+      <div class="plot-card reveal"><div class="plot-icon">🐾</div><h3>Haustiere erlaubt</h3><p>Hunde und andere Haustiere sind bei uns herzlich willkommen – genug Platz zum Toben.</p></div>
+    </div>
+    <div class="plots-cta reveal">
+      <a href="faq.html" class="faq-link-box">
+        <span class="faq-link-icon">❓</span>
+        <div>
+          <strong>Häufige Fragen zu Kosten &amp; Konditionen</strong>
+          <span>Jahreskosten, Arbeitsstunden, Übernahme &amp; mehr – alle Antworten in unserem FAQ</span>
+        </div>
+        <span class="faq-link-arrow">→</span>
+      </a>
+      <br /><a href="https://www.kleinanzeigen.de/s-bestandsliste.html?userId=140429822" target="_blank" rel="noopener" class="btn btn-primary">Jetzt Besichtigung anfragen</a>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ KONTAKT ═══ -->
 <section class="contact" id="kontakt">
   <div class="container">
@@ -571,10 +563,6 @@
         <div class="contact-detail">
           <div class="contact-detail-icon">✉️</div>
           <div class="contact-detail-text"><strong>E-Mail</strong><a href="mailto:kgv-harmonie@protonmail.com">kgv-harmonie@protonmail.com</a></div>
-        </div>
-        <div class="contact-detail">
-          <div class="contact-detail-icon">🌿</div>
-          <div class="contact-detail-text"><strong>Besichtigungen</strong>Robby Haffki (2. Vorsitzender) – Terminvereinbarung per E-Mail</div>
         </div>
       </div>
       <div class="contact-form reveal">
@@ -627,10 +615,10 @@
       <p>Bei Fragen stehen wir gern persönlich zur Verfügung.</p>
     </div>
     <div class="team-grid">
-      <div class="team-card reveal"><div class="team-avatar">MR</div><h3>Mario Ränsch</h3><div class="team-role">1. Vorsitzender</div></div>
-      <div class="team-card reveal"><div class="team-avatar">RH</div><h3>Robby Haffki</h3><div class="team-role">2. Vorsitzender</div></div>
-      <div class="team-card reveal"><div class="team-avatar">PS</div><h3>Philipp Stockmann</h3><div class="team-role">Kassierer · Homepage</div></div>
-      <div class="team-card reveal"><div class="team-avatar">MW</div><h3>Mandy Wenzel</h3><div class="team-role">Schriftführerin</div></div>
+      <div class="team-card reveal"><div class="team-avatar">🌿</div><h3>Mario Ränsch</h3><div class="team-role">1. Vorsitzender</div></div>
+      <div class="team-card reveal"><div class="team-avatar">🤝</div><h3>Robby Haffki</h3><div class="team-role">2. Vorsitzender</div></div>
+      <div class="team-card reveal"><div class="team-avatar">💻</div><h3>Philipp Stockmann</h3><div class="team-role">Kassierer · Homepage</div></div>
+      <div class="team-card reveal"><div class="team-avatar">📝</div><h3>Mandy Wenzel</h3><div class="team-role">Schriftführerin</div></div>
     </div>
   </div>
 </section>
