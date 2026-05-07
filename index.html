@@ -55,13 +55,16 @@
     nav.scrolled .nav-cta:hover { background: var(--green-mid) !important; }
 
     /* HERO */
-    .hero { min-height: 70vh; background: linear-gradient(160deg, rgba(20,32,22,0.65) 0%, rgba(42,74,46,0.50) 60%, rgba(61,107,66,0.30) 100%), url('hero.jpg') center/cover no-repeat; display: flex; align-items: center; padding-top: 70px; position: relative; overflow: hidden; }
+    .hero { min-height: 85vh; background: linear-gradient(160deg, rgba(20,32,22,0.65) 0%, rgba(42,74,46,0.50) 60%, rgba(61,107,66,0.30) 100%), url('hero.jpg') center/cover no-repeat; display: flex; align-items: center; padding-top: 70px; position: relative; overflow: hidden; }
     .hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 100px; background: linear-gradient(to top, var(--warm-white), transparent); }
     .hero-content { position: relative; z-index: 1; padding: 4rem 2rem; max-width: 760px; margin: 0 auto; text-align: center; animation: fadeUp 0.9s ease both; }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
-    .hero-nav { display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.4rem; }
-    .hero-nav a { display: inline-block; padding: 0.28rem 0.75rem; border: 1px solid rgba(255,255,255,0.4); border-radius: 20px; color: rgba(255,255,255,0.85); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; transition: all 0.2s; background: rgba(0,0,0,0.18); }
-    .hero-nav a:hover { background: var(--amber); border-color: var(--amber); color: white; }
+    .hero-nav { display: flex; gap: 0; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; border-top: 1px solid rgba(255,255,255,0.2); border-bottom: 1px solid rgba(255,255,255,0.2); padding: 0.75rem 0; }
+    .hero-nav a { color: rgba(255,255,255,0.75); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.3rem 1.2rem; position: relative; transition: color 0.2s; }
+    .hero-nav a::after { content: ''; position: absolute; bottom: -2px; left: 1.2rem; right: 1.2rem; height: 2px; background: var(--amber-light); transform: scaleX(0); transition: transform 0.2s; }
+    .hero-nav a:hover { color: white; }
+    .hero-nav a:hover::after { transform: scaleX(1); }
+    .hero-nav a + a::before { content: '·'; position: absolute; left: 0; color: rgba(255,255,255,0.25); font-size: 0.8rem; }
     .hero h1 { font-size: clamp(2.4rem, 6vw, 4rem); color: white; margin-bottom: 1.4rem; text-shadow: 0 2px 20px rgba(0,0,0,0.7), 0 4px 40px rgba(0,0,0,0.5); }
     .hero h1 em { font-style: italic; color: var(--amber-light); }
     .hero-sub { font-size: 1.05rem; color: rgba(245,240,232,0.9); max-width: 560px; margin: 0 auto 2.5rem; line-height: 1.8; }
@@ -152,11 +155,10 @@
     .team-header .section-label { color: var(--amber-light); }
     .team-header p { color: var(--green-light); margin-top: 0.75rem; }
     .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
-    .team-card { text-align: center; padding: 2rem 1.2rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(200,222,201,0.15); border-radius: 4px; transition: background 0.25s; }
-    .team-card:hover { background: rgba(255,255,255,0.1); }
-    .team-avatar { width: 72px; height: 72px; border-radius: 50%; background: rgba(255,255,255,0.1); margin: 0 auto 1.2rem; display: flex; align-items: center; justify-content: center; font-size: 2rem; border: 2px solid rgba(200,222,201,0.3); }
-    .team-card h3 { color: white; font-size: 1rem; margin-bottom: 0.3rem; }
-    .team-role { font-size: 0.75rem; color: var(--amber-light); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+    .team-card { padding: 2rem 1.5rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(200,222,201,0.15); border-radius: 4px; border-left: 3px solid var(--amber); transition: background 0.25s, border-color 0.25s; }
+    .team-card:hover { background: rgba(255,255,255,0.1); border-left-color: var(--amber-light); }
+    .team-card h3 { color: white; font-size: 1.1rem; margin-bottom: 0.4rem; font-family: 'Playfair Display', serif; }
+    .team-role { font-size: 0.75rem; color: var(--green-light); font-weight: 400; letter-spacing: 0.04em; line-height: 1.5; }
 
     /* KONTAKT */
     .contact { padding: 7rem 0; }
@@ -298,6 +300,14 @@
 <!-- ═══ HERO ═══ -->
 <section class="hero">
   <div class="hero-content">
+    <nav class="hero-nav">
+      <a href="#aktuelles">Aktuelles</a>
+      <a href="#ueber-uns">Über uns</a>
+      <a href="#parzellen">Parzellen</a>
+      <a href="galerie.html">Galerie</a>
+      <a href="faq.html">FAQ</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
     <h1>Willkommen in der <em>Harmonie</em></h1>
     <p class="hero-sub">Inmitten des Zwickauer Stadtteils Marienthal pflegen wir eine lebendige Gemeinschaft von Gartenfreunden – ein grünes Refugium für Familien, Naturliebhaber und alle, die dem Alltag entfliehen möchten.</p>
     <div class="hero-buttons">
@@ -493,33 +503,6 @@
   </div>
 </section>
 
-<!-- ═══ GALERIE TEASER ═══ -->
-<section class="gallery-teaser">
-  <div class="container">
-    <div class="gallery-teaser-header reveal">
-      <span class="section-label">Eindrücke</span>
-      <h2>Unsere Anlage in Bildern</h2>
-      <div class="divider"></div>
-      <p>Drohnenaufnahmen, Wege und Gärten – schau dir unsere Anlage in der Bildergalerie an.</p>
-    </div>
-    <div class="gallery-teaser-grid reveal">
-      <a href="galerie.html" class="teaser-main">
-        <img src="foto01.jpg" alt="Drohnenaufnahme Anlage" />
-        <div class="teaser-overlay"><span>📷 Alle Fotos ansehen</span></div>
-      </a>
-      <div class="teaser-side">
-        <a href="galerie.html" class="teaser-small"><img src="foto09.jpg" alt="Gartenimpression" /></a>
-        <a href="galerie.html" class="teaser-small"><img src="foto11.jpg" alt="Weg durch die Anlage" /></a>
-        <a href="galerie.html" class="teaser-small"><img src="foto07.jpg" alt="Blick über die Anlage" /></a>
-        <a href="galerie.html" class="teaser-small"><img src="foto12.jpg" alt="Vereinshaus" /></a>
-      </div>
-    </div>
-    <div class="gallery-teaser-cta reveal">
-      <a href="galerie.html" class="btn btn-primary">Zur Galerie</a>
-    </div>
-  </div>
-</section>
-
 <!-- ═══ PARZELLEN ═══ -->
 <section class="plots" id="parzellen">
   <div class="container">
@@ -606,6 +589,33 @@
   </div>
 </section>
 
+<!-- ═══ GALERIE TEASER ═══ -->
+<section class="gallery-teaser">
+  <div class="container">
+    <div class="gallery-teaser-header reveal">
+      <span class="section-label">Eindrücke</span>
+      <h2>Unsere Anlage in Bildern</h2>
+      <div class="divider"></div>
+      <p>Drohnenaufnahmen, Wege und Gärten – schau dir unsere Anlage in der Bildergalerie an.</p>
+    </div>
+    <div class="gallery-teaser-grid reveal">
+      <a href="galerie.html" class="teaser-main">
+        <img src="foto01.jpg" alt="Drohnenaufnahme Anlage" />
+        <div class="teaser-overlay"><span>📷 Alle Fotos ansehen</span></div>
+      </a>
+      <div class="teaser-side">
+        <a href="galerie.html" class="teaser-small"><img src="foto09.jpg" alt="Gartenimpression" /></a>
+        <a href="galerie.html" class="teaser-small"><img src="foto11.jpg" alt="Weg durch die Anlage" /></a>
+        <a href="galerie.html" class="teaser-small"><img src="foto07.jpg" alt="Blick über die Anlage" /></a>
+        <a href="galerie.html" class="teaser-small"><img src="foto12.jpg" alt="Vereinshaus" /></a>
+      </div>
+    </div>
+    <div class="gallery-teaser-cta reveal">
+      <a href="galerie.html" class="btn btn-primary">Zur Galerie</a>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ VORSTAND ═══ -->
 <section class="team" id="vorstand">
   <div class="container">
@@ -615,10 +625,10 @@
       <p>Bei Fragen stehen wir gern persönlich zur Verfügung.</p>
     </div>
     <div class="team-grid">
-      <div class="team-card reveal"><div class="team-avatar">🌿</div><h3>Mario Ränsch</h3><div class="team-role">1. Vorsitzender</div></div>
-      <div class="team-card reveal"><div class="team-avatar">🤝</div><h3>Robby Haffki</h3><div class="team-role">2. Vorsitzender</div></div>
-      <div class="team-card reveal"><div class="team-avatar">💻</div><h3>Philipp Stockmann</h3><div class="team-role">Kassierer · Homepage</div></div>
-      <div class="team-card reveal"><div class="team-avatar">📝</div><h3>Mandy Wenzel</h3><div class="team-role">Schriftführerin</div></div>
+      <div class="team-card reveal"><h3>Mario Ränsch</h3><div class="team-role">1. Vorsitzender</div></div>
+      <div class="team-card reveal"><h3>Robby Haffki</h3><div class="team-role">2. Vorsitzender</div></div>
+      <div class="team-card reveal"><h3>Philipp Stockmann</h3><div class="team-role">Kassierer · Homepage</div></div>
+      <div class="team-card reveal"><h3>Mandy Wenzel</h3><div class="team-role">Schriftführerin</div></div>
     </div>
   </div>
 </section>
