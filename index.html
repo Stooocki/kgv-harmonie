@@ -138,6 +138,15 @@
     .faq-link-box:hover strong { color: var(--charcoal); }
     .faq-link-box span:not(.faq-link-icon):not(.faq-link-arrow) { font-size: 0.85rem; color: rgba(255,255,255,0.88); }
     .faq-link-arrow { font-size: 1.5rem; color: white; flex-shrink: 0; margin-left: auto; }
+    /* NEWS BILDER */
+    .news-thumb { width: 80px; height: 80px; object-fit: cover; border-radius: 4px; cursor: pointer; float: right; margin: 0 0 0.5rem 1rem; transition: transform 0.2s, box-shadow 0.2s; border: 2px solid var(--border); }
+    .news-thumb:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+    .news-lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.92); align-items: center; justify-content: center; padding: 1rem; }
+    .news-lightbox.open { display: flex; }
+    .news-lightbox img { max-height: 85vh; max-width: 95vw; border-radius: 4px; object-fit: contain; }
+    .news-lightbox-close { position: absolute; top: 1.5rem; right: 1.5rem; color: white; font-size: 2rem; cursor: pointer; background: none; border: none; opacity: 0.8; }
+    .news-lightbox-close:hover { opacity: 1; }
+
     /* NEWS AUSKLAPPEN */
     .news-text-collapsed { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; max-height: 4.8em; line-height: 1.6; }
     .news-text-expanded { display: block; max-height: none; overflow: visible; }
