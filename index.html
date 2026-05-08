@@ -392,10 +392,9 @@
   const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSuxLH7jbqfmx6fOCAeHOYK3ZiwvNdf9Wa2YkAL9L7Ogos9n_EfStoux3laqVI3ZbSOozez26Aac-ms/pub?output=csv';
 
   function parseCSV(text) {
-    const lines = text.trim().split('\n');
+    const lines = text.trim().replace(/\r/g, '').split('\n');
     const headers = lines[0].split(',').map(h => h.replace(/"/g, '').trim());
     return lines.slice(1).map(line => {
-      // Handle commas inside quotes
       const cols = [];
       let current = '';
       let inQuotes = false;
@@ -406,7 +405,7 @@
       }
       cols.push(current.trim());
       const obj = {};
-      headers.forEach((h, i) => obj[h] = (cols[i] || '').replace(/"/g, ''));
+      headers.forEach((h, i) => obj[h] = (cols[i] || '').replace(/"/g, '').trim());
       return obj;
     }).filter(row => row.Titel && row.Titel.length > 0);
   }
@@ -427,11 +426,13 @@
     const first = items[0];
     const firstLong = first.Inhalt && first.Inhalt.length > 50;
     const firstId = 'news-main';
+    const firstImg = first.Bild && first.Bild.trim() ? `<img src="${first.Bild.trim()}" class="news-thumb" onclick="openNewsImg('${first.Bild.trim()}')" alt="News Bild" />` : '';
     html += `
       <div class="news-card reveal">
         <div class="news-card-body">
           <span class="news-tag">${first.Kategorie || 'Vereinsnews'}</span>
           <h3>${first.Titel}</h3>
+          ${firstImg}
           <p id="${firstId}" class="${firstLong ? 'news-text-collapsed' : ''}">${first.Inhalt}</p>
           ${firstLong ? `<button class="news-toggle" onclick="toggleNews('${firstId}', this)">▼ Mehr lesen</button>` : ''}
           <div class="news-date">📅 ${first.Datum}</div>
@@ -656,6 +657,12 @@
   </div>
 </section>
 
+<!-- NEWS LIGHTBOX -->
+<div class="news-lightbox" id="news-lightbox">
+  <button class="news-lightbox-close" onclick="closeNewsImg()">✕</button>
+  <img src="" id="news-lb-img" alt="News Bild" />
+</div>
+
 <!-- ═══ FOOTER ═══ -->
 <footer>
   <div class="footer-inner">
@@ -683,6 +690,23 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // News ausklappen
+  function openNewsImg(src) {
+    document.getElementById('news-lb-img').src = src;
+    document.getElementById('news-lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeNewsImg() {
+    document.getElementById('news-lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('news-lightbox').addEventListener('click', e => {
+    if (e.target === document.getElementById('news-lightbox')) closeNewsImg();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeNewsImg();
+  });
 
   // News ausklappen
   function toggleNews(id, btn) {
