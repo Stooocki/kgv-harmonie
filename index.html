@@ -392,22 +392,45 @@
   const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSuxLH7jbqfmx6fOCAeHOYK3ZiwvNdf9Wa2YkAL9L7Ogos9n_EfStoux3laqVI3ZbSOozez26Aac-ms/pub?output=csv';
 
   function parseCSV(text) {
-    const lines = text.trim().replace(/\r/g, '').split('\n');
-    const headers = lines[0].split(',').map(h => h.replace(/"/g, '').trim());
-    return lines.slice(1).map(line => {
-      const cols = [];
-      let current = '';
+    text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+    const results = [];
+    let headers = null;
+    let i = 0;
+
+    while (i < text.length) {
+      const row = [];
+      let field = '';
       let inQuotes = false;
-      for (let i = 0; i < line.length; i++) {
-        if (line[i] === '"') { inQuotes = !inQuotes; }
-        else if (line[i] === ',' && !inQuotes) { cols.push(current.trim()); current = ''; }
-        else { current += line[i]; }
+
+      while (i < text.length) {
+        const ch = text[i];
+        if (inQuotes) {
+          if (ch === '"') {
+            if (text[i+1] === '"') { field += '"'; i += 2; }
+            else { inQuotes = false; i++; }
+          } else {
+            field += ch === '\n' ? ' ' : ch;
+            i++;
+          }
+        } else {
+          if (ch === '"') { inQuotes = true; i++; }
+          else if (ch === ',') { row.push(field.trim()); field = ''; i++; }
+          else if (ch === '\n') { row.push(field.trim()); field = ''; i++; break; }
+          else { field += ch; i++; }
+        }
       }
-      cols.push(current.trim());
-      const obj = {};
-      headers.forEach((h, i) => obj[h] = (cols[i] || '').replace(/"/g, '').trim());
-      return obj;
-    }).filter(row => row.Titel && row.Titel.length > 0);
+
+      if (field.length > 0) row.push(field.trim());
+      if (row.length > 0) {
+        if (headers === null) { headers = row; }
+        else {
+          const obj = {};
+          headers.forEach((h, idx) => obj[h] = (row[idx] || '').trim());
+          if (obj.Titel && obj.Titel.length > 0) results.push(obj);
+        }
+      }
+    }
+    return results;
   }
 
   function renderNews(items) {
